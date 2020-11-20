@@ -1,0 +1,290 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: g2_family_lock@gmail.com
+    name: G2 - Family Lock
+    url: https://s-computing.blogspot.com/2020/09/familylock.html
+  description: This API offers services of management of legitimate people for the
+    system user
+  title: Legitimate People API
+  version: "1.0"
+servers:
+- description: Production server
+  url: http://legitimate.familylock.es
+- description: Beta server
+  url: http://beta.legitimate.familylock.es
+paths:
+  /legitimate_person/{device_mac}:
+    delete:
+      description: Delete the legitimate person given a device MAC.
+      operationId: delete_legitimate_person
+      parameters:
+      - description: Legitimate person's Device MAC
+        example: ff:ff:ff:ff:ff
+        explode: false
+        in: path
+        name: device_mac
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                example: Deleted
+                title: Deleted
+                type: string
+          description: Deleted
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Delete the legitimate person info.
+      tags:
+      - Legitimate Person
+      x-swagger-router-controller: LegitimatePerson
+      x-openapi-router-controller: openapi_server.controllers.legitimate_person_controller
+    get:
+      description: Return information of a legitimate person given MAC device
+      operationId: get_legitimate_person_info
+      parameters:
+      - description: Legitimate person's Device MAC
+        example: ff:ff:ff:ff:ff
+        explode: false
+        in: path
+        name: device_mac
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                example: Antonio
+                title: Name
+                type: string
+            application/json:
+              schema:
+                example: '{"name":"Antonio"}'
+                title: Name
+                type: string
+          description: OK
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Return info of a legitimate person given a device MAC
+      tags:
+      - Legitimate Person
+      x-swagger-router-controller: LegitimatePerson
+      x-openapi-router-controller: openapi_server.controllers.legitimate_person_controller
+  /legitimate_person:
+    get:
+      description: Return information of all the legitimate people
+      operationId: get_all_legitimate_person_info
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                example: Antonio; Juan
+                title: Name
+                type: string
+            application/json:
+              schema:
+                example: '[{"name":"Antonio"},{"name":"Juan"}]'
+                title: Name
+                type: string
+          description: OK
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Return all the information of each legitimate person
+      tags:
+      - Legitimate Person
+      x-swagger-router-controller: LegitimatePerson
+      x-openapi-router-controller: openapi_server.controllers.legitimate_person_controller
+    post:
+      description: Addition of a new legitimate person
+      operationId: post_legitimate_person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegitimatePerson'
+        required: true
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                example: OK
+                title: OK
+                type: string
+            application/json:
+              schema:
+                example: OK
+                title: OK
+                type: string
+          description: OK
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+        409:
+          content:
+            text/plain:
+              schema:
+                example: There is a conflict
+                title: Index conflict
+                type: string
+          description: DB index conflict
+      summary: Add a new legitimate person
+      tags:
+      - Legitimate Person
+      x-swagger-router-controller: LegitimatePerson
+      x-openapi-router-controller: openapi_server.controllers.legitimate_person_controller
+    put:
+      description: Update a legitimate person
+      operationId: put_legitimate_person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLegitimatePerson'
+        required: true
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                example: Updated
+                title: Updated
+                type: string
+          description: Updated
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+        409:
+          content:
+            text/plain:
+              schema:
+                example: There is a conflict
+                title: Index conflict
+                type: string
+          description: DB index conflict
+      summary: Update a device MAC
+      tags:
+      - Legitimate Person
+      x-swagger-router-controller: LegitimatePerson
+      x-openapi-router-controller: openapi_server.controllers.legitimate_person_controller
+components:
+  schemas:
+    LegitimatePerson:
+      example:
+        person_MAC:
+        - ff:ff:ff:ff:ff
+        person_name: Luis
+        person_phone_number: "000000000"
+        notification: true
+        dest_MAC: ""
+      properties:
+        person_MAC:
+          items:
+            type: string
+          type: array
+        person_name:
+          type: string
+        person_phone_number:
+          type: string
+        notification:
+          type: boolean
+        dest_MAC:
+          type: string
+      type: object
+      x-body-name: legitimate_person
+    UpdateLegitimatePerson:
+      example:
+        new_MAC: 00:00:00:00:00
+        old_MAC: ff:ff:ff:ff:ff
+      properties:
+        old_MAC:
+          type: string
+        new_MAC:
+          type: string
+      type: object
+      x-body-name: update_legitimate_person
