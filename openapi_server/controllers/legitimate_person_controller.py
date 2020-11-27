@@ -221,18 +221,10 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
         # Delete previous MAC
         prev_mac = legitimate_records[1]
         
-        print("#")
-        print(prev_mac)
-        
         prev_mac.remove(update_legitimate_person.old_mac)
-        print("##")
-        print(prev_mac)
 
         # Add new MAC
         prev_mac.append(update_legitimate_person.new_mac)
-
-        print("###")
-        print(prev_mac)
 
         query = """ UPDATE legitimate set person_mac = %s WHERE %s = ANY(person_mac)"""
         legitimate_data = (prev_mac, update_legitimate_person.old_mac)
