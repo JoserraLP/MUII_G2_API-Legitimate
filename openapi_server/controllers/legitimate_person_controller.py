@@ -234,12 +234,8 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
         print("###")
         print(prev_mac)
 
-        prev_mac_str = str(map(str, list))
-        
-        prev_mac_str = prev_mac_str.replace('[', '{').replace(']', '}')
-
         query = """ UPDATE legitimate set person_mac = %s WHERE %s = ANY(person_mac)"""
-        legitimate_data = (prev_mac_str, update_legitimate_person.old_mac)
+        legitimate_data = (prev_mac, update_legitimate_person.old_mac)
         cursor.execute(query, legitimate_data)
 
         conn.commit()
