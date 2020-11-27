@@ -31,10 +31,10 @@ def delete_legitimate_person(device_mac):  # noqa: E501
     
     try:
         
-        query = "DELETE FROM legitimate WHERE  {} IN  person_mac".format(device_mac)
+        query = "DELETE FROM legitimate WHERE %s = ANY(person_mac)"
 
         print("Deleting rows from legitimate table")
-        cursor.execute(query,(device_mac, ))
+        cursor.execute(query, (device_mac, ))
 
         conn.commit()
         
@@ -119,9 +119,9 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
     
     try:
 
-        query = "SELECT * FROM legitimate WHERE {} IN  person_mac".format(device_mac)
+        query = "SELECT * FROM legitimate WHERE %s = ANY(person_mac)"
 
-        cursor.execute(query)
+        cursor.execute(query, (device_mac, ))
         print("Selecting rows from legitimate table using cursor.fetchall")
         legitimate_records = cursor.fetchall() 
         
@@ -213,7 +213,7 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
 
     try:
 
-        query = """ UPDATE legitimate set person_mac = array_append(%s) WHERE %s IN person_mac"""
+        query = """ UPDATE legitimate set person_mac = array_append(%s) WHERE %s = ANY(person_mac)""""
         legitimate_data = (update_legitimate_person.new_mac, update_legitimate_person.old_mac)
         cursor.execute(query, legitimate_data)
 
