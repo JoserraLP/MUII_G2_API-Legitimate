@@ -213,7 +213,7 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
 
     try:
 
-        query = """ UPDATE legitimate set person_mac = array_append(%s) WHERE %s = ANY(person_mac)""""
+        query = """ UPDATE legitimate set person_mac = array_append(%s) WHERE %s = ANY(person_mac)"""
         legitimate_data = (update_legitimate_person.new_mac, update_legitimate_person.old_mac)
         cursor.execute(query, legitimate_data)
 
