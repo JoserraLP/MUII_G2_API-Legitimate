@@ -8,11 +8,6 @@ info:
     system user
   title: Legitimate People API
   version: "1.0"
-servers:
-- description: Production server
-  url: http://legitimate.familylock.es
-- description: Beta server
-  url: http://beta.legitimate.familylock.es
 paths:
   /legitimate_person/{device_mac}:
     delete:
