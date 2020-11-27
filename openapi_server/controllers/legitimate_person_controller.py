@@ -30,7 +30,6 @@ def delete_legitimate_person(device_mac):  # noqa: E501
     cursor = conn.cursor()
     
     try:
-
         
         query = "DELETE FROM legitimate WHERE  {} IN  person_mac".format(device_mac)"
 
@@ -112,7 +111,7 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
 
     :rtype: str
     """
-        conn = psycopg2.connect(user=DATABASE_USER,
+    conn = psycopg2.connect(user=DATABASE_USER,
                             password=DATABASE_PWD,
                             host=DATABASE_HOST,
                             database=DATABASE_DB, sslmode='require')
@@ -120,7 +119,6 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
     
     try:
 
-        
         query = "SELECT * FROM legitimate WHERE {} IN  person_mac".format(device_mac)".format(device_mac)
 
         cursor.execute(query)
