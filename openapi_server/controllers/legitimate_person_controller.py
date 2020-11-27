@@ -215,7 +215,7 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
 
         query = "SELECT * FROM legitimate WHERE %s = ANY(person_mac)"
 
-        cursor.execute(query, (device_mac, ))
+        cursor.execute(query, (update_legitimate_person.old_mac, ))
         legitimate_records = cursor.fetchone()
 
         print(legitimate_records.person_mac)
