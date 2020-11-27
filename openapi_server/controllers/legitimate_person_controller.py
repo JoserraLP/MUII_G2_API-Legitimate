@@ -223,7 +223,7 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
         prev_mac = []
 
         for row in legitimate_records:
-            prev_mac.append = row[1]
+            prev_mac.append(row[1])
 
         print(prev_mac)
 
