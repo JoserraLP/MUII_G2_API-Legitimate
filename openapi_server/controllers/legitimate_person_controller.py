@@ -218,17 +218,16 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
         cursor.execute(query, (update_legitimate_person.old_mac, ))
         legitimate_records = cursor.fetchone()
 
-        print(legitimate_records)
+        # Delete previous MAC
+        prev_mac = legitimate_records[1].remove(update_legitimate_person.old_mac)
 
-        prev_mac = []
+        # Add new MAC
+        prev_mac.append(update_legitimate_person.new_mac)
 
-        for row in legitimate_records:
-            prev_mac.append(row[1])
+        prev_mac = prev_mac.replace('[', '{').replace(']', '}')
 
-        print(prev_mac)
-
-        query = """ UPDATE legitimate set person_mac =  WHERE %s = ANY(person_mac)"""
-        legitimate_data = (update_legitimate_person.new_mac, update_legitimate_person.old_mac)
+        query = """ UPDATE legitimate set person_mac = %s WHERE %s = ANY(person_mac)"""
+        legitimate_data = (prev_mac, update_legitimate_person.old_mac)
         cursor.execute(query, legitimate_data)
 
         conn.commit()
