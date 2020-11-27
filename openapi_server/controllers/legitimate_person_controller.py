@@ -31,7 +31,7 @@ def delete_legitimate_person(device_mac):  # noqa: E501
     
     try:
         
-        query = "DELETE FROM legitimate WHERE  {} IN  person_mac".format(device_mac)"
+        query = "DELETE FROM legitimate WHERE  {} IN  person_mac".format(device_mac)
 
         print("Deleting rows from legitimate table")
         cursor.execute(query,(device_mac, ))
@@ -119,7 +119,7 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
     
     try:
 
-        query = "SELECT * FROM legitimate WHERE {} IN  person_mac".format(device_mac)".format(device_mac)
+        query = "SELECT * FROM legitimate WHERE {} IN  person_mac".format(device_mac)
 
         cursor.execute(query)
         print("Selecting rows from legitimate table using cursor.fetchall")
