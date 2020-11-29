@@ -21,6 +21,7 @@ class TestLegitimatePersonController(BaseTestCase):
         Delete the legitimate person info.
         """
         mocked_delete_legitimate_person.assert_not_called()
+        mocked_delete_legitimate_person.return_value = None
         response = self.client.open(
             '/legitimate_person/{device_mac}'.format(device_mac="ff:ff:ff:ff:ff"),
             method='DELETE')
@@ -92,6 +93,7 @@ class TestLegitimatePersonController(BaseTestCase):
         Add a new legitimate person
         """
         mocked_add_legitimate_person.assert_not_called()
+        mocked_add_legitimate_person.return_value = None
         legitimate_person = LegitimatePerson()
         response = self.client.open(
             '/legitimate_person',
@@ -111,6 +113,7 @@ class TestLegitimatePersonController(BaseTestCase):
         """
         mocked_get_legitimate_person_info.assert_not_called()
         mocked_update_legitimate_person.assert_not_called()
+        mocked_update_legitimate_person.return_value = None
         mocked_get_legitimate_person_info.return_value = [
             [1,
              "ff:ff:ff:ff:ff",
