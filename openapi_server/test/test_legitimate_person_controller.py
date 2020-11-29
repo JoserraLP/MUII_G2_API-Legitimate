@@ -61,19 +61,19 @@ class TestLegitimatePersonController(BaseTestCase):
         mocked_get_legitimate_person_info.assert_not_called()
         mocked_get_legitimate_person_info.return_value = [
             [1,
-             "ff:ff:ff:ff:ff",
+             ["ff:ff:ff:ff:ff"],
              "user",
              "123546789",
              True,
              "ASDKASD"],
             [2,
-             "00:00:00:ff:ff",
+             ["00:00:00:ff:ff"],
              "user1",
              "123546789",
              False,
              "ASDKAasdasdSD"],
             [3,
-             "00:00:ff:00:00",
+             ["00:00:ff:00:00"],
              "usee2",
              "123546789",
              False,
@@ -104,25 +104,28 @@ class TestLegitimatePersonController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    @mock.patch("openapi_server.models.update_legitimate_person.UpdateLegitimatePerson")
     @mock.patch("muii_g2_family_lock_database.Database.PostgresDB.update_legitimate_person")
     @mock.patch("muii_g2_family_lock_database.Database.PostgresDB.get_legitimate_person_info")
-    def test_put_legitimate_person(self, mocked_get_legitimate_person_info, mocked_update_legitimate_person):
+    def test_put_legitimate_person(self, mocked_get_legitimate_person_info, mocked_update_legitimate_person,
+                                   mocked_UpdateLegitimatePerson):
         """Test case for put_legitimate_person
 
         Update a device MAC
         """
         mocked_get_legitimate_person_info.assert_not_called()
         mocked_update_legitimate_person.assert_not_called()
+        mocked_UpdateLegitimatePerson.return_value = {"old_mac": "00:00:00:00:00", "new_mac": "ff:ff:ff:ff:ff"}
         mocked_update_legitimate_person.return_value = None
-        mocked_get_legitimate_person_info.return_value = [
-            [1,
-             "ff:ff:ff:ff:ff",
-             "user",
-             "123546789",
-             True,
-             "ASDKASD"]
-        ]
-        update_legitimate_person = UpdateLegitimatePerson()
+        mocked_get_legitimate_person_info.return_value = [[1,
+                                                           ["00:00:00:00:00", ],
+                                                           "user",
+                                                           "123546789",
+                                                           True,
+                                                           "ASDKASD"]
+
+                                                          ]
+        update_legitimate_person = UpdateLegitimatePerson(old_mac="00:00:00:00:00")
         response = self.client.open(
             '/legitimate_person',
             method='PUT',
