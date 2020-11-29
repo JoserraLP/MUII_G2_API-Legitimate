@@ -16,8 +16,9 @@ def delete_legitimate_person(device_mac):  # noqa: E501
     :rtype: str
     """
     db = PostgresDB()
-    db.delete_legitimate_person(device_mac)
-
+    error = db.delete_legitimate_person(device_mac)
+    if error:
+        return error
     return "Record deleted successfully"
 
 
@@ -31,7 +32,8 @@ def get_all_legitimate_person_info():  # noqa: E501
     """
     db = PostgresDB()
     legitimate_records = db.get_all_legitimate_person_info()
-
+    if "Error" in legitimate_records:
+        return legitimate_records
     data = {"legitimate": []}
     for row in legitimate_records:
         data['legitimate'].append(
@@ -60,7 +62,8 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
     """
     db = PostgresDB()
     legitimate_person_info = db.get_legitimate_person_info(device_mac)
-
+    if "Error" in legitimate_person_info:
+        return legitimate_person_info
     data = {"legitimate": []}
     for row in legitimate_person_info:
         data['legitimate'].append(
@@ -92,9 +95,11 @@ def post_legitimate_person(legitimate_person):  # noqa: E501
         legitimate_person = LegitimatePerson.from_dict(connexion.request.get_json())  # noqa: E501
 
     db = PostgresDB()
-    db.add_legitimate_person(legitimate_person.person_mac, legitimate_person.person_name,
-                             legitimate_person.person_phone_number,
-                             legitimate_person.notification, legitimate_person.dest_mac)
+    error = db.add_legitimate_person(legitimate_person.person_mac, legitimate_person.person_name,
+                                     legitimate_person.person_phone_number,
+                                     legitimate_person.notification, legitimate_person.dest_mac)
+    if error:
+        return error
     return "Record inserted successfully into legitimate table"
 
 
@@ -114,12 +119,16 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
         update_legitimate_person = UpdateLegitimatePerson.from_dict(connexion.request.get_json())  # noqa: E501
 
     legitimate_person = db.get_legitimate_person_info(update_legitimate_person.old_mac)
-    # Delete previous MAC
+    if "Error" in legitimate_person:
+        return legitimate_person
 
+    # Delete previous MAC
     prev_mac = legitimate_person[0][1]
     prev_mac.remove(update_legitimate_person.old_mac)
 
     # Add new MAC
     prev_mac.append(update_legitimate_person.new_mac)
-    db.update_legitimate_person(prev_mac, update_legitimate_person.old_mac)
+    error = db.update_legitimate_person(prev_mac, update_legitimate_person.old_mac)
+    if error:
+        return error
     return "Record updated successfully into legitimate table"
