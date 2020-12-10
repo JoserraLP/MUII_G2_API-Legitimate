@@ -11,6 +11,8 @@ info:
 servers:
   - url: https://muii-g2-api-legitimate.herokuapp.com/
     description: "Production server (uses live data)"
+  - url: http://beta.muii-g2-api-legitimate.herokuapp.com/
+  description: "Testing server (uses test data)" 
 paths:
   /legitimate_person/{device_mac}:
     delete:
