@@ -121,13 +121,7 @@ def put_legitimate_person(update_legitimate_person):  # noqa: E501
     if "Error" in legitimate_person:
         return legitimate_person
 
-    # Delete previous MAC
-    prev_mac = legitimate_person[0][1]
-    prev_mac.remove(update_legitimate_person.old_mac)
-
-    # Add new MAC
-    prev_mac.append(update_legitimate_person.new_mac)
-    error = db.update_legitimate_person(prev_mac, update_legitimate_person.old_mac)
+    error = db.update_legitimate_person(update_legitimate_person.new_mac, update_legitimate_person.old_mac)
     if error:
         return error
     return "Record updated successfully into legitimate table"
