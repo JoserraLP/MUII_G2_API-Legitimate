@@ -19,7 +19,7 @@ class LegitimatePerson(Model):
         """LegitimatePerson - a model defined in OpenAPI
 
         :param person_mac: The person_mac of this LegitimatePerson.  # noqa: E501
-        :type person_mac: List[str]
+        :type person_mac: str
         :param person_name: The person_name of this LegitimatePerson.  # noqa: E501
         :type person_name: str
         :param person_phone_number: The person_phone_number of this LegitimatePerson.  # noqa: E501
@@ -30,7 +30,7 @@ class LegitimatePerson(Model):
         :type dest_mac: str
         """
         self.openapi_types = {
-            'person_mac': List[str],
+            'person_mac': str,
             'person_name': str,
             'person_phone_number': str,
             'notification': bool,
@@ -68,7 +68,7 @@ class LegitimatePerson(Model):
 
 
         :return: The person_mac of this LegitimatePerson.
-        :rtype: List[str]
+        :rtype: str
         """
         return self._person_mac
 
@@ -78,7 +78,7 @@ class LegitimatePerson(Model):
 
 
         :param person_mac: The person_mac of this LegitimatePerson.
-        :type person_mac: List[str]
+        :type person_mac: str
         """
 
         self._person_mac = person_mac

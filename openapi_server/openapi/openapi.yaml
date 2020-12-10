@@ -8,6 +8,9 @@ info:
     system user
   title: Legitimate People API
   version: "1.0"
+servers:
+  - url: https://muii-g2-api-legitimate.herokuapp.com/
+    description: "Production server (uses live data)"
 paths:
   /legitimate_person/{device_mac}:
     delete:
@@ -251,17 +254,14 @@ components:
   schemas:
     LegitimatePerson:
       example:
-        person_MAC:
-        - ff:ff:ff:ff:ff
+        person_MAC: ff:ff:ff:ff:ff
         person_name: Luis
         person_phone_number: "000000000"
         notification: true
         dest_MAC: ""
       properties:
         person_MAC:
-          items:
             type: string
-          type: array
         person_name:
           type: string
         person_phone_number:
