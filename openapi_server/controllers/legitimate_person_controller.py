@@ -43,7 +43,7 @@ def get_all_legitimate_person_info():  # noqa: E501
                 "person_name": row[2],
                 "person_phone_number": row[3],
                 "notification": row[4],
-                "dest_MAC": row[5]
+                "relation": row[5]
             }
         )
 
@@ -73,7 +73,7 @@ def get_legitimate_person_info(device_mac):  # noqa: E501
                 "person_name": row[2],
                 "person_phone_number": row[3],
                 "notification": row[4],
-                "dest_MAC": row[5]
+                "relation": row[5]
             }
         )
 
@@ -97,7 +97,7 @@ def post_legitimate_person(legitimate_person):  # noqa: E501
     db = PostgresDB()
     error = db.add_legitimate_person(legitimate_person.person_mac, legitimate_person.person_name,
                                      legitimate_person.person_phone_number,
-                                     legitimate_person.notification, legitimate_person.dest_mac)
+                                     legitimate_person.notification, legitimate_person.relation)
     if error:
         return error
     return "Record inserted successfully into legitimate table"

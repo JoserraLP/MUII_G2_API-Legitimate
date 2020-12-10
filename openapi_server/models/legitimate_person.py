@@ -15,7 +15,7 @@ class LegitimatePerson(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, person_mac=None, person_name=None, person_phone_number=None, notification=None, dest_mac=None):  # noqa: E501
+    def __init__(self, person_mac=None, person_name=None, person_phone_number=None, notification=None, relation=None):  # noqa: E501
         """LegitimatePerson - a model defined in OpenAPI
 
         :param person_mac: The person_mac of this LegitimatePerson.  # noqa: E501
@@ -26,15 +26,15 @@ class LegitimatePerson(Model):
         :type person_phone_number: str
         :param notification: The notification of this LegitimatePerson.  # noqa: E501
         :type notification: bool
-        :param dest_mac: The dest_mac of this LegitimatePerson.  # noqa: E501
-        :type dest_mac: str
+        :param relation: The relation to the LegitimatePerson.  # noqa: E501
+        :type relation: str
         """
         self.openapi_types = {
             'person_mac': str,
             'person_name': str,
             'person_phone_number': str,
             'notification': bool,
-            'dest_mac': str
+            'relation': str
         }
 
         self.attribute_map = {
@@ -42,14 +42,14 @@ class LegitimatePerson(Model):
             'person_name': 'person_name',
             'person_phone_number': 'person_phone_number',
             'notification': 'notification',
-            'dest_mac': 'dest_MAC'
+            'relation': 'relation'
         }
 
         self._person_mac = person_mac
         self._person_name = person_name
         self._person_phone_number = person_phone_number
         self._notification = notification
-        self._dest_mac = dest_mac
+        self._relation = relation
 
     @classmethod
     def from_dict(cls, dikt) -> 'LegitimatePerson':
@@ -147,22 +147,22 @@ class LegitimatePerson(Model):
         self._notification = notification
 
     @property
-    def dest_mac(self):
-        """Gets the dest_mac of this LegitimatePerson.
+    def relation(self):
+        """Gets the relation of this LegitimatePerson.
 
 
-        :return: The dest_mac of this LegitimatePerson.
+        :return: The relation of this LegitimatePerson.
         :rtype: str
         """
-        return self._dest_mac
+        return self._relation
 
-    @dest_mac.setter
-    def dest_mac(self, dest_mac):
-        """Sets the dest_mac of this LegitimatePerson.
+    @relation.setter
+    def relation(self, relation):
+        """Sets the relation of this LegitimatePerson.
 
 
-        :param dest_mac: The dest_mac of this LegitimatePerson.
-        :type dest_mac: str
+        :param relation: The relation of this LegitimatePerson.
+        :type relation: str
         """
 
-        self._dest_mac = dest_mac
+        self._relation = relation

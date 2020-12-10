@@ -258,7 +258,7 @@ components:
         person_name: Luis
         person_phone_number: "000000000"
         notification: true
-        dest_MAC: ""
+        relation: ""
       properties:
         person_MAC:
             type: string
@@ -268,7 +268,7 @@ components:
           type: string
         notification:
           type: boolean
-        dest_MAC:
+        relation:
           type: string
       type: object
       x-body-name: legitimate_person
