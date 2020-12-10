@@ -4,7 +4,6 @@ from muii_g2_family_lock_database.Database import PostgresDB
 from openapi_server.models.legitimate_person import LegitimatePerson  # noqa: E501
 from openapi_server.models.update_legitimate_person import UpdateLegitimatePerson  # noqa: E501
 
-
 def delete_legitimate_person(device_mac):  # noqa: E501
     """Delete the legitimate person info.
 
